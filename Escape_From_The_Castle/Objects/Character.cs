@@ -14,7 +14,7 @@ namespace Escape_From_The_Castle
             Max_Bag_Size = size;
             Bag.set_size(Backpack, size);
         }
-        public Character (string type, string name)
+        public Character(string type, string name)
         {
             switch (type)
             {
@@ -24,6 +24,7 @@ namespace Escape_From_The_Castle
                     Max_Health = 100;
                     Max_Bag_Size = 5;
                     Bag.set_size(Backpack, 5);
+                    actions.Add(new Action("firebolt"));
                     break;
                 default:
                     throw new ArgumentException("Type does not exist");
@@ -115,14 +116,30 @@ namespace Escape_From_The_Castle
             return Bag.get_item(sender.Backpack, index);
         }
 
-        public static void Action_Menu(Character sender)
-        {
-
-        }
-
         public static Boolean on_door(Character sender)
         {
             return sender.Door;
+        }
+
+        public static void Action_Menu(Character sender)
+        {
+            do
+            {
+                try
+                {
+                    Console.WriteLine("1 - Attack   2 - Use Item");
+                    Console.WriteLine("3 - Move     4 - End Turn");
+                    string input = Console.ReadLine();
+                foreach (Action a in sender.actions)
+                    {
+                        Action.Action_Option(a);
+                    }
+                }
+                catch
+                {
+
+                }
+            } while (true);
         }
     }
 }

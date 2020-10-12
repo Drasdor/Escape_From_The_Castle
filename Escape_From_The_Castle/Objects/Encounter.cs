@@ -11,7 +11,7 @@ namespace Escape_From_The_Castle
             if (name == "entrance")
             {
                 current_room = new Room("entrance");
-            }            
+            }
         }
 
         public static void Run(Encounter sender, Team players)
@@ -22,6 +22,7 @@ namespace Escape_From_The_Castle
                 for (int i = 0; i < total; i++)
                 {
                     Turn(sender, i);
+                    Character.Action_Menu(Team.get_character(players, 0));
                 }
             } while (true);
         }
@@ -29,7 +30,7 @@ namespace Escape_From_The_Castle
         public static void Turn(Encounter sender, int index)
         {
             Room.draw_room(sender.current_room);
-            
+
         }
 
         public static int Character_Count(Encounter sender, Team players)

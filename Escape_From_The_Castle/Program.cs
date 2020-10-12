@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json;
 using System.IO;
-using System.Drawing;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
-using System.Data;
 
 namespace Escape_From_The_Castle
 {
     class Program
     {
+
         static void Main()
         {
             Item torch = new Item("torch");
@@ -48,7 +46,7 @@ namespace Escape_From_The_Castle
             }
 
             Encounter entrance = new Encounter("entrance");
-            Encounter.Run(entrance);
+            Encounter.Run(entrance, players);
 
             Console.ReadLine();
         }
