@@ -36,10 +36,21 @@ namespace Escape_From_The_Castle
             }
         }
 
-        public static void Use(Bag sender, Item i)
+        public static void Use(Bag sender, int index)
         {
-            Console.WriteLine("Using " + Item.GetName(i));
-            sender.Contents.Remove(i);
+            Item.Use(sender.Contents[index]);
+            if (Item.IsUsed(sender.Contents[index]) == true)
+            {
+                sender.Contents.RemoveAt(index);
+            }
+        }
+        public static void Eat(Bag sender, int index, Character target)
+        {
+            Food.Use((Food)sender.Contents[index], target);
+            if (Item.IsUsed(sender.Contents[index]) == true)
+            {
+                sender.Contents.RemoveAt(index);
+            }
         }
 
         public static void DropIndex(Bag sender, int index)

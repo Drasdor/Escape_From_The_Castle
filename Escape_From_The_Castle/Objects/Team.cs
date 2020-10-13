@@ -22,12 +22,12 @@ namespace Escape_From_The_Castle
             sender.Health += Character.GetHealth(c);
         }
 
-        public static void speak(Team sender, int index)
+        public static void Speak(Team sender, int index)
         {
             Character.Speak(sender.Members[index]);
         }
 
-        public static void get_health(Team sender, int index)
+        public static void GetHealth(Team sender, int index)
         {
             Character.GetHealth(sender.Members[index]);
         }
@@ -57,9 +57,10 @@ namespace Escape_From_The_Castle
             Character.DescribeBackpack(sender.Members[index]);
         }
 
-        public static void UseItem(Team sender, int index, Item i)
+        public static void UseIndex(Team sender, int charIndex, int itemIndex)
         {
-            Character.UseItem(sender.Members[index], i);
+            Character.UseIndex(sender.Members[charIndex], itemIndex);
+            UpdateHealth(sender);
         }
 
         public static void ModifyHealth(Team sender, int index, int change)
@@ -67,7 +68,7 @@ namespace Escape_From_The_Castle
             int health = Character.GetHealth(sender.Members[index]);
             int max_health = Character.GetMaxHealth(sender.Members[index]);
 
-            //Picks the appropriate change of health (accounting for max and 0)
+            // Picks the appropriate change of health (accounting for max and 0).
             if (health + change < 1)
             {
                 sender.Health -= health;
@@ -84,13 +85,23 @@ namespace Escape_From_The_Castle
             Character.ModifyHealth(sender.Members[index], change);
         }
 
+        public static void UpdateHealth(Team sender)
+        {
+            sender.Health = 0;
+            foreach(Character c in sender.Members)
+            {
+                Character.GetHealth(c);
+                sender.Health += 0;
+            }
+        }
+
         public static void Transfer(Team sender, int from_player, int to_player, int index)
         {
             Character.AddToBag(sender.Members[to_player], Character.GetItem(sender.Members[from_player], index));
             Character.DropIndex(sender.Members[from_player], index);
         }
 
-        public static Boolean CanLeave(Team sender)
+        public static bool CanLeave(Team sender)
         {
             foreach (Character c in sender.Members)
             {
@@ -107,7 +118,7 @@ namespace Escape_From_The_Castle
             return sender.Members[index];
         }
 
-        public static Boolean IsAlive(Team sender)
+        public static bool IsAlive(Team sender)
         {
             if (sender.Health < 1)
             {

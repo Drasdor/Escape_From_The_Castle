@@ -102,10 +102,15 @@ namespace Escape_From_The_Castle
             Bag.Describe(sender.Backpack);
         }
 
-        public static void UseItem(Character sender, Item i)
+        public static void UseIndex(Character sender, int index)
         {
-            Bag.Use(sender.Backpack, i);
+            Bag.Use(sender.Backpack, index);
         }
+        public static void EatIndex(Character sender, int index, Character target)
+        {
+            Bag.Eat(sender.Backpack, index, target);
+        }
+
 
         public static void DropIndex(Character sender, int index)
         {

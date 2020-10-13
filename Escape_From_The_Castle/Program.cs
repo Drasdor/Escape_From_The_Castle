@@ -11,7 +11,8 @@ namespace Escape_From_The_Castle
         static void Main()
         {
             Item torch = new Item("torch");
-            Item knife = new Item("knife");
+            Weapon knife = new Weapon("knife");
+            Food chicken = new Food("chicken");
             int playerNumber = 0;
             string teamName = "";
 
@@ -42,7 +43,7 @@ namespace Escape_From_The_Castle
                 Team.AddCharacter(players, name, "human");
                 Team.AddToBag(players, i, torch);
                 Team.AddToBag(players, i, knife);
-            }
+            }            
 
             Encounter entrance = new Encounter("entrance");
             Encounter.Run(entrance, players);

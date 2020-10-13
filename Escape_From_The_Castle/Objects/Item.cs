@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Escape_From_The_Castle
@@ -61,13 +62,13 @@ namespace Escape_From_The_Castle
 
     public class Food : Item
     {
-        private int Health;
+        private readonly int Health;
 
         public Food(string name) : base(name)
         {
             switch (name)
             {
-                case "Chicken":
+                case "chicken":
                     Health = 10;
                     break;
                 default:
@@ -75,9 +76,49 @@ namespace Escape_From_The_Castle
             }
         }
 
-        public static void Use(Food sender)
+        public static void Use(Food sender, Character eater)
         {
+            Character.ModifyHealth(eater, sender.Health);
+            sender.Used = true;
+        }
+    }
 
+    public class Weapon : Item
+    {
+        private readonly int Damage;
+        private readonly int Range;
+
+        public Weapon(string name) : base(name)
+        {
+            switch (name)
+            {
+                case "knife":
+                    Damage = 5;
+                    Range = 1;
+                    break;
+                default:
+                    throw new ArgumentException("Type does not exist");
+            }
+        }
+    }
+
+    public class Note : Item
+    {
+        private readonly string Text;
+
+        public Note(string name, string text) : base(name)
+        {
+            Text = text;
+        }
+    }
+
+    public class Key : Item
+    {
+        private readonly string Door;
+
+        public Key(string name, string door) : base(name)
+        {
+            Door = door;
         }
     }
 }
@@ -87,3 +128,10 @@ namespace Escape_From_The_Castle
             Item.use(torch);
             Item.use(torch);
 */
+
+/*Character c = Team.GetCharacter(players, 0);
+            Character.ModifyHealth(c, -50);
+            Character.AddToBag(c, chicken);
+            Character.EatIndex(c, 2, c);
+            Console.WriteLine(Character.GetHealth(c));
+            Team.UpdateHealth(players);*/
