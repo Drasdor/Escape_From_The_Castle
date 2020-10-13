@@ -6,29 +6,29 @@ namespace Escape_From_The_Castle
 {
     public class Bag
     {
+        private int MaxBagSize;
+        private readonly List<Item> Contents = new List<Item>();
+
         public Bag(int size)
         {
-            max_bag_size = size;
+            MaxBagSize = size;
         }
 
-        private int max_bag_size;
-        private List<Item> contents = new List<Item>();
-
-        public static void describe(Bag sender)
+        public static void Describe(Bag sender)
         {
             Console.Write("I have the following items in my bag: ");
-            foreach (Item i in sender.contents)
+            foreach (Item i in sender.Contents)
             {
-                Console.Write(Item.get_name(i) + " ");
+                Console.Write(Item.GetName(i) + " ");
             }
             Console.WriteLine();
         }
 
-        public static void add(Bag sender, Item i)
+        public static void Add(Bag sender, Item i)
         {
-            if (sender.contents.Count < sender.max_bag_size)
+            if (sender.Contents.Count < sender.MaxBagSize)
             {
-                sender.contents.Add(i);
+                sender.Contents.Add(i);
             }
             else
             {
@@ -36,30 +36,30 @@ namespace Escape_From_The_Castle
             }
         }
 
-        public static void use(Bag sender, Item i)
+        public static void Use(Bag sender, Item i)
         {
-            Console.WriteLine("Using " + Item.get_name(i));
-            sender.contents.Remove(i);
+            Console.WriteLine("Using " + Item.GetName(i));
+            sender.Contents.Remove(i);
         }
 
-        public static void drop_index(Bag sender, int index)
+        public static void DropIndex(Bag sender, int index)
         {
-            sender.contents.RemoveAt(index);
+            sender.Contents.RemoveAt(index);
         }
 
-        public static void set_size(Bag sender, int new_size)
+        public static void SetSize(Bag sender, int new_size)
         {
-            sender.max_bag_size = new_size;
+            sender.MaxBagSize = new_size;
         }
 
-        public static int get_length(Bag sender)
+        public static int GetLength(Bag sender)
         {
-            return sender.contents.Count;
+            return sender.Contents.Count;
         }
 
-        public static Item get_item(Bag sender, int index)
+        public static Item GetItem(Bag sender, int index)
         {
-            return sender.contents[index];
+            return sender.Contents[index];
         }
     }
 }

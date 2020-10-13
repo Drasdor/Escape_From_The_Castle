@@ -6,39 +6,38 @@ namespace Escape_From_The_Castle
 {
     class Encounter
     {
+        private readonly Room CurrentRoom;
+        private readonly Team Enemies = new Team("enemies");
+
         public Encounter(string name)
         {
             if (name == "entrance")
             {
-                current_room = new Room("entrance");
+                CurrentRoom = new Room("entrance");
             }
-        }
+        }       
 
         public static void Run(Encounter sender, Team players)
         {
             do
             {
-                int total = Character_Count(sender, players);
+                int total = CharacterCount(sender, players);
                 for (int i = 0; i < total; i++)
                 {
                     Turn(sender, i);
-                    Character.Action_Menu(Team.get_character(players, 0));
+                    Character.ActionMenu(Team.GetCharacter(players, 0));
                 }
             } while (true);
         }
 
         public static void Turn(Encounter sender, int index)
         {
-            Room.draw_room(sender.current_room);
-
+            Room.DrawRoom(sender.CurrentRoom);
         }
 
-        public static int Character_Count(Encounter sender, Team players)
+        public static int CharacterCount(Encounter sender, Team players)
         {
-            return (Team.Get_Count(sender.enemies) + Team.Get_Count(players));
-        }
-
-        private Room current_room;
-        private Team enemies = new Team("enemies");
+            return (Team.GetCount(sender.Enemies) + Team.GetCount(players));
+        }        
     }
 }

@@ -6,14 +6,24 @@ namespace Escape_From_The_Castle
 {
     public class Character
     {
+        private readonly int MaxBagSize;
+        private readonly string Name;
+        private int Health;
+        private readonly int MaxHealth;
+        private readonly int[] Location = { 0, 0 };
+        private readonly Bag Backpack = new Bag(1);
+        private Boolean Door = false;
+        private readonly List<Action> Actions = new List<Action>();
+
         public Character(string name, int health, int size)
         {
             Name = name;
             Health = health;
-            Max_Health = health;
-            Max_Bag_Size = size;
-            Bag.set_size(Backpack, size);
+            MaxHealth = health;
+            MaxBagSize = size;
+            Bag.SetSize(Backpack, size);
         }
+
         public Character(string type, string name)
         {
             switch (type)
@@ -21,66 +31,57 @@ namespace Escape_From_The_Castle
                 case "human":
                     Name = name;
                     Health = 100;
-                    Max_Health = 100;
-                    Max_Bag_Size = 5;
-                    Bag.set_size(Backpack, 5);
-                    actions.Add(new Action("firebolt"));
+                    MaxHealth = 100;
+                    MaxBagSize = 5;
+                    Bag.SetSize(Backpack, 5);
+                    Actions.Add(new Action("firebolt"));
                     break;
                 default:
                     throw new ArgumentException("Type does not exist");
             }
-        }
+        }        
 
-        private int Max_Bag_Size;
-        private string Name;
-        private int Health;
-        private int Max_Health;
-        private int[] Location = { 0, 0 };
-        private Bag Backpack = new Bag(1);
-        private Boolean Door = false;
-        private List<Action> actions = new List<Action>();
-
-        public static void modify_health(Character sender, int modifier)
+        public static void ModifyHealth(Character sender, int modifier)
         {
             sender.Health += modifier;
-
+            
             if (sender.Health < 1)
             {
                 sender.Health = 0;
                 throw new ArgumentException("Character has died");
             }
-            if (sender.Health > sender.Max_Health)
+            if (sender.Health > sender.MaxHealth)
             {
-                sender.Health = sender.Max_Health;
+                sender.Health = sender.MaxHealth;
             }
         }
 
-        public static int get_health(Character sender)
+        public static int GetHealth(Character sender)
         {
             return sender.Health;
         }
 
-        public static int get_max_health(Character sender)
+        public static int GetMaxHealth(Character sender)
         {
-            return sender.Max_Health;
+            return sender.MaxHealth;
         }
 
-        public static int get_x(Character sender)
+        public static int GetCol(Character sender)
         {
             return sender.Location[0];
         }
 
-        public static int get_y(Character sender)
+        public static int GetRow(Character sender)
         {
             return sender.Location[1];
         }
 
-        public static void speak(Character sender)
+        public static void Speak(Character sender)
         {
             Console.WriteLine("My name is " + sender.Name);
         }
 
-        public static void move(Character sender, int col, int row)
+        public static void Move(Character sender, int col, int row)
         {
             if (sender.Location[0] + col < 0 || sender.Location[0] + row < 0)
             {
@@ -91,37 +92,37 @@ namespace Escape_From_The_Castle
             sender.Location[1] = sender.Location[1] + row;
         }
 
-        public static void add_to_bag(Character sender, Item i)
+        public static void AddToBag(Character sender, Item i)
         {
-            Bag.add(sender.Backpack, i);
+            Bag.Add(sender.Backpack, i);
         }
 
-        public static void describe_backpack(Character sender)
+        public static void DescribeBackpack(Character sender)
         {
-            Bag.describe(sender.Backpack);
+            Bag.Describe(sender.Backpack);
         }
 
-        public static void use_item(Character sender, Item i)
+        public static void UseItem(Character sender, Item i)
         {
-            Bag.use(sender.Backpack, i);
+            Bag.Use(sender.Backpack, i);
         }
 
-        public static void drop_index(Character sender, int index)
+        public static void DropIndex(Character sender, int index)
         {
-            Bag.drop_index(sender.Backpack, index);
+            Bag.DropIndex(sender.Backpack, index);
         }
 
-        public static Item get_item(Character sender, int index)
+        public static Item GetItem(Character sender, int index)
         {
-            return Bag.get_item(sender.Backpack, index);
+            return Bag.GetItem(sender.Backpack, index);
         }
 
-        public static Boolean on_door(Character sender)
+        public static Boolean OnDoor(Character sender)
         {
             return sender.Door;
         }
 
-        public static void Action_Menu(Character sender)
+        public static void ActionMenu(Character sender)
         {
             do
             {
@@ -130,9 +131,9 @@ namespace Escape_From_The_Castle
                     Console.WriteLine("1 - Attack   2 - Use Item");
                     Console.WriteLine("3 - Move     4 - End Turn");
                     string input = Console.ReadLine();
-                foreach (Action a in sender.actions)
+                    foreach (Action a in sender.Actions)
                     {
-                        Action.Action_Option(a);
+                        Action.ActionOption(a);
                     }
                 }
                 catch

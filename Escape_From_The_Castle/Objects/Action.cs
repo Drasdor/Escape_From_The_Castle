@@ -6,6 +6,11 @@ namespace Escape_From_The_Castle
 {
     class Action
     {
+        private readonly string Type;
+        private readonly string Name;
+        private readonly int Health;
+        private readonly int Range;
+
         public Action(string name)
         {
             switch (name)
@@ -20,16 +25,13 @@ namespace Escape_From_The_Castle
                     throw new ArgumentException("Type does not exist");
             }
         }
+
         public Action(string name, int damage)
         {
 
-        }
-        private string Type;
-        private string Name;
-        private int Health;
-        private int Range;
+        }        
 
-        public static void Action_Option(Action sender)
+        public static void ActionOption(Action sender)
         {
             switch (sender.Type)
             {

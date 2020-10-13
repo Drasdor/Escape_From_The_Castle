@@ -9,10 +9,13 @@ namespace Escape_From_The_Castle
 {
     public class Room
     {
+        private List<List<Tile>> Tiles = new List<List<Tile>>();
+
         public Room(List<List<Tile>> tiles)
         {
             Tiles = tiles;
         }
+
         public Room(string name)
         {
             string path = $"{name}.txt";
@@ -32,24 +35,22 @@ namespace Escape_From_The_Castle
                     i = i + 1;
                 }
             }
-        }
+        }        
 
-        private List<List<Tile>> Tiles = new List<List<Tile>>();
-
-        public static void draw_room(Room sender)
+        public static void DrawRoom(Room sender)
         {
             foreach (List<Tile> row in sender.Tiles)
             {
                 foreach (Tile til in row)
                 {
-                    Console.ForegroundColor = Tile.get_colour(til);
-                    Console.Write(Tile.get_char(til));
+                    Console.ForegroundColor = Tile.GetColour(til);
+                    Console.Write(Tile.GetChar(til));
                 }
                 Console.WriteLine();
             }
         }
 
-        public static void room_creator(string name)
+        public static void RoomCreator(string name)
         {
             do
             {
@@ -61,24 +62,23 @@ namespace Escape_From_The_Castle
                     int col = Convert.ToInt32(Console.ReadLine());
                     string path = $"{name}.txt";
 
-                    using (StreamWriter sw = new StreamWriter(@"rooms\" + path))
+                    using StreamWriter sw = new StreamWriter(@"rooms\" + path);
+                    for (int r = 0; r < row - 1; r++)
                     {
-                        for (int r = 0; r < row - 1; r++)
-                        {
-                            for (int c = 0; c < col; c++)
-                            {
-                                sw.Write(Console.ReadKey().KeyChar);
-                            }
-                            Console.WriteLine();
-                            sw.WriteLine();
-                        }
-
                         for (int c = 0; c < col; c++)
                         {
                             sw.Write(Console.ReadKey().KeyChar);
                         }
                         Console.WriteLine();
+                        sw.WriteLine();
                     }
+                    sw.Close();
+
+                    for (int c = 0; c < col; c++)
+                    {
+                        sw.Write(Console.ReadKey().KeyChar);
+                    }
+                    Console.WriteLine();
                     break;
                 }
                 catch

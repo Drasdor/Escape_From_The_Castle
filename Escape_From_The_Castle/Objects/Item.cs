@@ -6,6 +6,10 @@ namespace Escape_From_The_Castle
 {
     public class Item
     {
+        protected string Name;
+        protected string Description;
+        protected bool Used;
+
         public Item(string name)
         {
             switch (name)
@@ -28,22 +32,19 @@ namespace Escape_From_The_Castle
                 default:
                     throw new ArgumentException("Type does not exist");
             }
-        }
-        protected string Name;
-        protected string Description;
-        protected bool Used;
+        }        
 
-        public static string get_name(Item sender)
+        public static string GetName(Item sender)
         {
             return sender.Name;
         }
 
-        public static void describe(Item sender)
+        public static void Describe(Item sender)
         {
             Console.WriteLine(sender.Description);
         }
 
-        public static void use(Item sender)
+        public static void Use(Item sender)
         {
             if (sender.Used == true)
             {
@@ -52,7 +53,7 @@ namespace Escape_From_The_Castle
             sender.Used = true;
         }
 
-        public static bool is_used(Item sender)
+        public static bool IsUsed(Item sender)
         {
             return sender.Used;
         }
@@ -60,20 +61,21 @@ namespace Escape_From_The_Castle
 
     public class Food : Item
     {
-        private int health;
+        private int Health;
+
         public Food(string name) : base(name)
         {
             switch (name)
             {
                 case "Chicken":
-                    health = 10;
+                    Health = 10;
                     break;
                 default:
                     throw new ArgumentException("Type does not exist");
             }
         }
 
-        public static void use(Food sender)
+        public static void Use(Food sender)
         {
 
         }

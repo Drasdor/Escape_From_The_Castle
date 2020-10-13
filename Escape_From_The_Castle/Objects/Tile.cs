@@ -6,23 +6,23 @@ namespace Escape_From_The_Castle
 {
     public class Tile
     {
+        private readonly char Base;
+        private readonly Bag Chest;
+
         public Tile(char bottom)
         {
             Base = bottom;
             if (bottom == 'C')
             {
-                chest = new Bag(3);
+                Chest = new Bag(3);
             }
             else
             {
-                chest = new Bag(1);
+                Chest = new Bag(1);
             }
-        }
+        }        
 
-        private char Base;
-        private Bag chest;
-
-        public static char get_char(Tile sender)
+        public static char GetChar(Tile sender)
         {
             if (sender.Base == '|')
             {
@@ -32,9 +32,9 @@ namespace Escape_From_The_Castle
             return sender.Base;
         }
 
-        public static ConsoleColor get_colour(Tile sender)
+        public static ConsoleColor GetColour(Tile sender)
         {
-            char c = Tile.get_char(sender);
+            char c = Tile.GetChar(sender);
             switch (c)
             {
                 case '|':
